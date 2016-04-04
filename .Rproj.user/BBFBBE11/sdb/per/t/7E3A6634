@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "# \nclaims <- read.csv(\"~/Ruby/claims_learning/claims_exp_.csv\")\n\nmw_claims <- subset(claims,loss_percent > 2 & loss_percent < 30 & abs(time_diff)<1200 & ex_vert_asi < 0.7 )\n\nmw_claims <- subset(claims,loss_percent > 2 & loss_percent < 30 & abs(time_diff)<1200 & ex_vert_asi < 0.7 )\n\n\ng<- ggplot(mw_claims,aes(x=abs(ex_vert_asi),y=loss_percent) )\n#g= g + xlab('ASI\"')\n#g= g + xlab('Loss Percent %')\ng=g+geom_point(size =2 , color = 'black', alpha=0.8)\n#g=g+geom_point(aes(x=ex_vert_asi,y=loss_percent), size =3 , color = 'black', alpha=0.8)\ng=g+geom_smooth(method = lm, color = 'red')\ng\n\ndf=data.frame(predict(fit),mw_claims$loss_percent)\n\nhist(claims$loss_percent)\nfit=lm(loss_percent ~ ex_vert_asi + speed + I(abs(max_later_g)) + I(abs(max_long_g)),data=claims_cl)\nplot(fit)\n\nstr(claims)\nsummary(fit)\n\ny=predict(fit)\nhead(y)\n",
+    "created" : 1458330149119.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1678667037",
+    "id" : "7E3A6634",
+    "lastKnownWriteTime" : 1458596044,
+    "last_content_update" : 1458596044487,
+    "path" : "~/Dropbox/Work/QuasarSoftware/Tasks/DataMining/ClaimsResearch/lib/basics_data_load.R",
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

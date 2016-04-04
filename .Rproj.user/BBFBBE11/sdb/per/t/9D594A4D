@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "## GGPLOt games\nlibrary(UsingR)\ndata(\"diamond\")\ng<- ggplot(diamond,aes(x=carat,y=price) )\ng= g+ xlab('Mass. Carats\"')\ng= g+ xlab('Price SIN $')\ng=g+geom_point(size =6 , color = 'black', alpha=0.2)\ng=g+geom_point(size =5 , color = 'black', alpha=0.2)\ng=g+geom_smooth(method = lm, color = 'red')\ng\n",
+    "created" : 1458245563763.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "958736216",
+    "id" : "9D594A4D",
+    "lastKnownWriteTime" : 1458320928,
+    "last_content_update" : 1458320928677,
+    "path" : "~/Dropbox/Education/Coursera/DataScience_RegressionModels/ggplot_simple.R",
+    "project_path" : "ggplot_simple.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

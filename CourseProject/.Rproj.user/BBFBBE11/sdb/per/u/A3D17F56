@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"Regression Models Course Project\"\nauthor: \"Ivan Astafiev\"\ndate: \"April 3, 2016\"\noutput: html_document\n---\n\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(echo = TRUE)\n```\n\n## \n\nThis is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.\n\nWhen you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:\n\n```{r cars}\nsummary(cars)\n```\n\n## Research Goals\n\n Explore Motor Trend dataset to fix a relationsship of automatic/manual gear and fuel usage in MilesPerGalon (MPG)\n \n Questions: \n  - Is an automatic or manual transmission better for MPG\n  - MPG difference between automatic and manual transmissions\n\n## Executive Summary\n\n## DataSet exploration  an\n\nData Set: mtcars\nDetailed data description presented at Annex 1.\n\nTo answer this research question we interested in relationship of <mpg> (Miles Per Gallon) and <am> (Transmission (0 = automatic, 1 = manual). We should include possible confounding variables to adjust independent relationship between <mpg> and <am> features. \n\nThe main \n\n```{r library(UsingR)}\n\n\n```\n\n## Modeling\n\n### Model Selection criteria\n\n### Residual Plots\n\n### Coefficients interpretation\n\n## Including Plots\n\nYou can also embed plots, for example:\n\n```{r pressure, echo=FALSE}\nplot(pressure)\n```\n\nNote that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.\n\n## Anex 1.\n\nDescription\n\nThe data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).\n\nUsage\n\nmtcars\nFormat\n\nA data frame with 32 observations on 11 variables.\n\n-\tmpg\tMiles/(US) gallon\n-\tcyl\tNumber of cylinders\n-\tdisp\tDisplacement (cu.in.)\n-\thp\tGross horsepower\n-\tdrat\tRear axle ratio\n-\twt\tWeight (1000 lbs)\n-\tqsec\t1/4 mile time\n- vs\tV/S\n-\tam\tTransmission (0 = automatic, 1 = manual)\n-\tgear\tNumber of forward gears\n-\tcarb\tNumber of carburetors\n",
+    "created" : 1459671850981.000,
+    "dirty" : true,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "1827054862",
+    "id" : "A3D17F56",
+    "lastKnownWriteTime" : 111550524582252,
+    "last_content_update" : 1459672749131,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

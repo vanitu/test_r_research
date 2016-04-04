@@ -1,0 +1,87 @@
+---
+title: "Regression Models Course Project"
+author: "Ivan Astafiev"
+date: "April 3, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Research Goals
+
+ Explore Motor Trend dataset to fix a relationsship of automatic/manual gear and fuel usage in MilesPerGalon (MPG)
+ 
+ Questions: 
+  - Is an automatic or manual transmission better for MPG
+  - MPG difference between automatic and manual transmissions
+
+## Executive Summary
+
+## DataSet exploration  an
+
+Data Set: mtcars
+Detailed data description presented at Annex 1.
+
+To answer this research question we interested in relationship of <mpg> (Miles Per Gallon) and <am> (Transmission (0 = automatic, 1 = manual). We should include possible confounding variables to adjust independent relationship between <mpg> and <am> features. 
+
+The main 
+
+```{r library(UsingR)}
+
+
+```
+
+## Modeling
+
+### Model Selection criteria
+
+### Residual Plots
+
+### Coefficients interpretation
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+## Anex 1.
+
+Description
+
+The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).
+
+Usage
+
+mtcars
+Format
+
+A data frame with 32 observations on 11 variables.
+
+-	mpg	Miles/(US) gallon
+-	cyl	Number of cylinders
+-	disp	Displacement (cu.in.)
+-	hp	Gross horsepower
+-	drat	Rear axle ratio
+-	wt	Weight (1000 lbs)
+-	qsec	1/4 mile time
+- vs	V/S
+-	am	Transmission (0 = automatic, 1 = manual)
+-	gear	Number of forward gears
+-	carb	Number of carburetors

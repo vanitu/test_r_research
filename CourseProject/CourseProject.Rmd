@@ -1,0 +1,132 @@
+---
+title: "Regression Models Course Project"
+author: "Ivan Astafiev"
+date: "April 3, 2016"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Executive Summary
+
+Dataset from the 1974 Motor Trend US magazine was explored to understand a relationship between transmission type (automatic/manual) and fuel usage in MilesPerGalon (MPG). 
+
+The main questions was to distinguish which transmission type is more fuel efficient and try to calculate this difference. 
+
+Regression Linear model was created which include MPG as an outcome and Weight, Horse Power, Number of cylinders and Transmission Type as a predictors. 
+
+According to regression model results, manual transmission shows better fuel efficiency than automatic gear. Usage of Manual transmission compared to Automatic brings 1.8 miles increase in distance driven per 1 Gallon (MPG). 
+
+However, p-value of a Transmission factor in final model equaled to 0.21. This fact do not allow to reject null hypothesis that type of transmission has a statistical significant influence on a MPG. More data and deeper research is necessary.
+
+
+```{r, include=FALSE}
+library(UsingR)
+library(ggplot2)
+```
+
+## Simple Mean analisys
+
+```{r fig.width=4,fig.height=2, echo=FALSE}
+g<-ggplot(data = mtcars, aes(y = mpg, x = as.factor(am), fill = as.factor(am)))+geom_violin(colour = "black", size = 2) + xlab("Transmission type") + ylab("MPG")
+g
+```
+
+Hypothesis test to check that difference in MPG means for automatic and manual transmissions statistical significant.
+
+```{r}
+t.test(mpg~am,mtcars)
+```
+
+T-test results on simple means brings p-value at 0.001374. This is below 0.05 and confirms alternative hypothesis that difference in means statistical significant. But according to dataset analysis there can be present other confounding variables which can be evaluated in Regression model analysis.
+
+
+## Regression Model analisys
+
+Multivariable Regression Model is selected as a method to answer research questions.
+Several models was fitted and optimal model was selected using a step-by-step method.
+
+Regression model analysis allows to fix several confounding variables which has a big impact on MPG. These variables are: Weight, Horse Power and number of cylinders.
+
+Model selection process presented at **Annex 1.**
+
+**Final Model**
+
+```{r}
+final_fit<-lm(mpg~am+as.factor(cyl)+wt+hp,mtcars)
+```
+
+Model predicting force: Adjusted R-squared =  *0.8401*
+
+Residual Plot analysis shows that there not clear dependency visible on a residual plot. (see Annex 2. Residuals for more details)
+
+**Coefficients Interpretation**
+```{r}
+round(summary(final_fit)$coef,2)
+```
+
+- Usage of Manual Transmission cause a 1.8 miles increase in distance driver per 1 gallon
+
+*However, P-value eqaled to 0.21 do not allow to reject null hypothesis that type of transmission has a statistical significant influence on a MPG. More data and deeper research is necessary.*  
+
+## Research answers
+
+**Question 1**
+- Is an automatic or manual transmission better for MPG?
+
+*ANSWER* = Manual transmission is better for MPG
+
+**Question 2**
+- Calculate MPG difference between automatic and manual transmissions
+
+*ANSWER* = Manual transmission brings 1.8 miles increase in distance driven per 1 gallon (MPG)
+
+\pagebreak
+
+## Annex 1. Model Selection
+
+Multivariable Regression Model is selected as a method to answer research questions.
+
+Following process selected:
+
+ - Create a several models with step by step adding variables
+ - Compare models using Anova function to detect valuable variables
+ - Constract final model with the most dependent variables
+ 
+Variance and R-squared parameters used for selection of best model.
+
+**Base model**
+```{r}
+fit0<-lm(mpg ~ am,mtcars)
+```
+ 
+**Model Selection** 
+```{r, echo=FALSE }
+fit1<-update(fit0,mpg ~ am + cyl,mtcars)
+fit2<-update(fit0,mpg ~ am + cyl+disp,mtcars)
+fit3<-update(fit0,mpg ~ am + cyl+disp+hp,mtcars)
+fit4<-update(fit0,mpg ~ am + cyl+disp+hp+wt,mtcars)
+fit5<-update(fit0,mpg ~ am + cyl+disp+hp+wt+qsec,mtcars)
+fit6<-update(fit0,mpg ~ am + cyl+disp+hp+wt+qsec+as.factor(vs),mtcars)
+fit7<-update(fit0,mpg ~ am + cyl+disp+hp+wt+qsec+as.factor(vs)+as.factor(gear),mtcars)
+fit8<-update(fit0,mpg ~ am + cyl+disp+hp+wt+qsec+as.factor(vs)+as.factor(gear)+as.factor(carb),mtcars)
+
+anova(fit0,fit1,fit2,fit3,fit4,fit5,fit6,fit7,fit8)
+```
+
+Anova results show that according to P value the following variables should be included in final model because of confirmed statistical inference: wt, cyl, hp
+
+**Final model**
+```{r}
+final_fit<-lm(mpg~am+as.factor(cyl)+wt+hp,mtcars)
+```
+
+**Residuals**
+
+```{r, echo=FALSE}
+plot(final_fit,which=1)
+```
+
+Residuals spread on a plot in general without any clear dependency. However there are some dependency in a line which can be caused by outfitted values of Toyota Corolla and Fiat 128. This must be further investigated

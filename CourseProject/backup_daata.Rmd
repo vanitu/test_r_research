@@ -1,0 +1,176 @@
+
+---
+title: "Regression Models Course Project"
+author: "Ivan Astafiev"
+date: "April 3, 2016"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Executive Summary
+
+Motor Trend dataset was explored to understand a relationship between transmission type (automatic/manual)and fuel usage in MilesPerGalon (MPG). The main questions was to distinguish which transmission type is more fuel efficient and try to calcuate this difference.
+ 
+*Questions*:
+ 
+- Is an automatic or manual transmission better for MPG
+- MPG difference between automatic and manual transmissions
+
+## Executive Summary
+
+
+
+
+## DataSet exploration  
+
+*Data Set*: mtcars
+Detailed data description presented at Annex 1.
+
+We interested in relationship of **mpg** (Miles Per Gallon) and **am** (Transmission (0 = automatic, 1 = manual). 
+
+We should include possible confounding variables to adjust independent relationship between **mpg** and **am** variables 
+
+```{r, include=FALSE}
+library(UsingR)
+library(ggplot2)
+```
+
+#### MPG to Transmission (0 = automatic, 1 = manual) 
+```{r fig.width=4,fig.height=2, echo=FALSE}
+g<-ggplot(data = mtcars, aes(y = mpg, x = as.factor(am), fill = as.factor(am)))+geom_violin(colour = "black", size = 2) + xlab("Transmission type") + ylab("MPG")
+g
+```
+
+*MPG to Transmission* plot shows some evidence that dependency of mpg to transmission can be present. 
+So, our goal is to clear that dependency from possible confounding variables to prove or reject this dependency.
+
+## Modeling
+
+Multivariable Regression Model is selected as a method to answer research questions.
+
+Following process selected:
+
+ - Create a several models with step by step adding variables
+ - Compare models using Anova function to detect valuable variables
+ - Constract final model with the most dependent variables
+ 
+**Base model**
+```{r}
+fit0<-lm(mpg ~ am,mtcars)
+```
+ 
+**Model Selection** 
+```{r, echo=FALSE }
+fit1<-update(fit0,mpg ~ am + cyl,mtcars)
+fit2<-update(fit0,mpg ~ am + cyl+disp,mtcars)
+fit3<-update(fit0,mpg ~ am + cyl+disp+hp,mtcars)
+fit4<-update(fit0,mpg ~ am + cyl+disp+hp+wt,mtcars)
+fit5<-update(fit0,mpg ~ am + cyl+disp+hp+wt+qsec,mtcars)
+fit6<-update(fit0,mpg ~ am + cyl+disp+hp+wt+qsec+as.factor(vs),mtcars)
+fit7<-update(fit0,mpg ~ am + cyl+disp+hp+wt+qsec+as.factor(vs)+as.factor(gear),mtcars)
+fit8<-update(fit0,mpg ~ am + cyl+disp+hp+wt+qsec+as.factor(vs)+as.factor(gear)+as.factor(carb),mtcars)
+
+anova(fit0,fit1,fit2,fit3,fit4,fit5,fit6,fit7,fit8)
+```
+
+Anova results show that according to P value the following variables should be included in final model because of confirmed statistical inference: 
+
+
+| Variable | Type   | Description       |
+|:---------|:-------|:------------------|
+|*wt*      |numeric | Weight (1000 lbs) |
+|*cyl*     |factor  | Number of cylinders (to be included as Factor of 4,6,8 cylinder) |
+|*hp*|numeric |Gross horsepower |
+
+ 
+#### Final Model
+
+**Model**
+```{r}
+final_fit<-lm(mpg~am+as.factor(cyl)+wt+hp,mtcars)
+```
+
+Adjusted R-squared:  *0.8401*
+
+Adjusted R-squared achieved by FinalModel is a maximum value comparing to all other models tried. 
+
+**Residuals**
+
+```{r, echo=FALSE}
+plot(final_fit,which=1)
+```
+
+Residuals spread on a plot in general without any clear dependency. However there are some dependency in a line which can be caused by outfitted values of Toyota Corolla and Fiat 128. This must be further investigated
+
+
+## Executive Summary
+
+**Final Model**
+
+| Variable | Type   | Description       |
+|:---------|:-------|:------------------|
+|*am*      |factor | Transmission type (0=automatic, 1 = manual) |
+|*wt*      |numeric | Weight (1000 lbs) |
+|*cyl*     |factor  | Number of cylinders (to be included as Factor of 4,6,8 cylinder) |
+|*hp*|numeric |Gross horsepower |
+
+```{r}
+lm(mpg~am+as.factor(cyl)+wt+hp,mtcars)
+```
+
+**Prediction precision**
+
+Adjusted R-squared:  *0.8401*
+
+**Coefficients**
+```{r}
+round(summary(final_fit)$coef,2)
+```
+
+- Increase of weight for 1000 lb cause a 2.5 miles decrease in distance driven per 1 gallon
+- Usage of Manual Transmission cause a 1.8 miles increase in distance driver per 1 gallon
+- Usage of 6cyl engine cause a 3 miles decrease in distance driven per 1 gallon 
+- Usage of 8cyl engine cause a 2.16 miles decrease in distance driven per 1 gallon 
+- P value for Transmission type do not allow to reject null hypothesis(H0), so we cant guarantee that automatic/manual transmission has a statistical dependable influence on fuel usage
+
+**Research questions**
+
+**Question 1**
+- Is an automatic or manual transmission better for MPG?
+
+*ANSWER* = Manual transmission is better for MPG
+
+**Question 2**
+- MPG difference between automatic and manual transmissions
+
+*ANSWER* = Manual transmission brings 1.8 miles increase in distance driven per 1 gallon (MPG)
+
+**However**, P value do not allow to reject null hypothesis that type of transmission has a statistical valuable influence on a MPG factor. More data and deeper research is necessary.   
+
+
+## Anex 1. MTCARS DATA Descritpion
+
+
+**Description**
+
+The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).
+
+**Format**
+
+A data frame with 32 observations on 11 variables.
+
+-	mpg	Miles/(US) gallon
+-	cyl	Number of cylinders
+-	disp	Displacement (cu.in.)
+-	hp	Gross horsepower
+-	drat	Rear axle ratio
+-	wt	Weight (1000 lbs)
+-	qsec	1/4 mile time
+- vs	V/S
+-	am	Transmission (0 = automatic, 1 = manual)
+-	gear	Number of forward gears
+-	carb	Number of carburetors
+

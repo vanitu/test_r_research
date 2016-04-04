@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "library(UsingR)\nlibrary(ggplot2)\nlibrary(GGally)\n\n?mtcars\n\nggally(mtcars)\n\n?GGally\nggpairs(mtcars)\nlibrary(GGally) \n\ng<-ggplot(data = mtcars, aes(y = mpg, x = as.factor(am), fill = as.factor(am)))+geom_violin(colour = \"black\", size = 2) + xlab(\"Transmission type\") + ylab(\"MPG\")\ng\n\n#Creation of various models to make an anova comparison\nfit0<-lm(mpg ~ as.factor(am),mtcars)\n\nfit1<-update(fit0,mpg ~ am + cyl,mtcars)\nfit2<-update(fit0,mpg ~ am + cyl+disp,mtcars)\nfit3<-update(fit0,mpg ~ am + cyl+disp+hp,mtcars)\nfit4<-update(fit0,mpg ~ am + cyl+disp+hp+wt,mtcars)\nfit5<-update(fit0,mpg ~ am + cyl+disp+hp+wt+qsec,mtcars)\nfit6<-update(fit0,mpg ~ am + cyl+disp+hp+wt+qsec+as.factor(vs),mtcars)\nfit7<-update(fit0,mpg ~ am + cyl+disp+hp+wt+qsec+as.factor(vs)+as.factor(gear),mtcars)\nfit8<-update(fit0,mpg ~ am + cyl+disp+hp+wt+qsec+as.factor(vs)+as.factor(gear)+as.factor(carb),mtcars)\n\nanova(fit0,fit1,fit2,fit3,fit4,fit5,fit6,fit7,fit8)\n\ncor(mtcars$wt,mtcars$cyl)\n\nfinal_fit<-lm(mpg~as.factor(am)+as.factor(cyl)+wt+gear+hp,mtcars)\nsummary(final_fit)\nplot(final_fit)\n\nplot(mtcars$wt,mtcars$mpg)\n\n# run linear regression for Fertility vs Agriculture + Examination + Education fit3 <- update(fit, Fertility ~ Agriculture + Examination + Education)\nplot(fit1, which = 1)\n\nsummary\n\nstr(mtcars)\n",
+    "created" : 1459671681203.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1769953228",
+    "id" : "F9FE7072",
+    "lastKnownWriteTime" : 1459753019,
+    "last_content_update" : 1459753019729,
+    "path" : "~/Dropbox/Education/Coursera/DataScience_RegressionModels/CourseProject/raw_code.R",
+    "project_path" : "raw_code.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,28 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1458330388918.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "62860CF8",
+    "lastKnownWriteTime" : 2321663010922307584,
+    "last_content_update" : 1458330388918,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "bsowx1ngmf",
+        "caption" : "claims_cl",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=claims_cl&cache_key=bsowx1ngmf",
+        "displayedObservations" : "185",
+        "environment" : "",
+        "object" : "claims_cl",
+        "totalObservations" : "185",
+        "variables" : "20"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}
